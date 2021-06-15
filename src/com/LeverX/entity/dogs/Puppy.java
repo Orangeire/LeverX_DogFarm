@@ -15,6 +15,7 @@ public class Puppy extends Dog{
 
     public void setDogTrained(boolean dogTrained) {
         isDogTrained = dogTrained;
+        setDogHungry(true);
     }
 
 }

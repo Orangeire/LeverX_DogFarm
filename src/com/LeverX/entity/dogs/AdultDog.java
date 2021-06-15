@@ -8,9 +8,11 @@ public class AdultDog extends Dog{
     }
 
     public void workInPolice(){
+        setDogHungry(true);
     }
 
     public void workInEmergency(){
+        setDogHungry(true);
     }
 
 }

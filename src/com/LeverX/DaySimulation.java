@@ -9,6 +9,9 @@ import com.LeverX.entity.dogs.Puppy;
 import com.LeverX.entity.staff.Cleaner;
 import com.LeverX.entity.staff.Veterinarian;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DaySimulation {
 
     private AdultDog cooper = new AdultDog(5, "Cooper");
@@ -18,9 +21,13 @@ public class DaySimulation {
     private Veterinarian veterinarian = new Veterinarian();
     private Cleaner cleaner = new Cleaner("Sidorov", "Ivan", 27);
     private TrainingGround trainingGround = new TrainingGround();
-
+    List<Dog> dogs = new ArrayList<>();
 
     public void simulateDay(){
+        dogs.add(cooper);
+        dogs.add(ajax);
+        dogs.add(hachi);
+        dogs.add(dexter);
         breakfast();
         veterinarianCheck();
         aviaryCleaning();
@@ -31,10 +38,19 @@ public class DaySimulation {
 
     private void breakfast() {
         System.out.println("Good morning! New day starts with breakfast.");
+        for (Dog dog:
+             dogs) {
+            dog.setDogHungry(false);
+        }
     }
 
     private void veterinarianCheck() {
-        veterinarian.healDog(hachi);
+        for (Dog dog:
+                dogs) {
+            if (dog.getClass().equals(OldDog.class)) {
+                veterinarian.healDog((OldDog) dog);
+            }
+        }
     }
 
     private void aviaryCleaning() {
@@ -46,19 +62,31 @@ public class DaySimulation {
 
     private void training() {
         System.out.println("Puppies are go to training");
-        trainingGround.trainPuppy(dexter);
-//        dexter.setDogTrained(true);
-//        System.out.println("Dexter is trained now!");
+        for (Dog dog:
+             dogs) {
+            if (dog.getClass().equals(Puppy.class)) {
+                trainingGround.trainPuppy((Puppy) dog);
+            }
+        }
     }
 
     private void work() {
         System.out.println("Adult dogs are go to work");
-        cooper.workInEmergency();
-        ajax.workInPolice();
-        System.out.println("Cooper works in emergency. Ajax works in police.");
+        for (Dog dog:
+                dogs) {
+            if (dog.getClass().equals(AdultDog.class)) {
+                ((AdultDog) dog).workInEmergency();
+                System.out.println(dog.getName() + " works in emergency.");
+            }
+        }
     }
 
     private void supper() {
         System.out.println("End of the day. All Dogs are going to supper.");
+        System.out.println("Good morning! New day starts with breakfast.");
+        for (Dog dog:
+                dogs) {
+            dog.setDogHungry(false);
+        }
     }
 }
